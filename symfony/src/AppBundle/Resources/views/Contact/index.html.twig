@@ -1,0 +1,52 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Lista miejsc</h1>
+
+    <ul>
+        <li>
+            <a href="{{ path('contact_new') }}">
+                Dodaj nowy
+            </a>
+        </li>
+    </ul>
+    <table class="records_list">
+        <thead>
+        <tr>
+            <th>Lp</th>
+            <th>Nazwa Firmy</th>
+            <th>Email</th>
+            <th>Opis</th>
+            <th>Status</th>
+            <th>Akcje</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% set myVal = 0 %}
+        {% for entity in entities %}
+            <tr>
+                <td>
+                    {% set myVal = myVal + 1 %}{{ myVal }}
+                </td>
+                <td><a href="{{ path('contact_show', { 'id': entity.id }) }}">{{ entity.name|capitalize }}</a></td>
+                <td style="font-weight:900;"><a href="mailto:{{ entity.email }}?Subject=Aplikacja%20Tomek%20Kaczmarczyk"
+                                                target="_top">{{ entity.email }}</a></td>
+                <td>{{ entity.description }}</td>
+                <td>{{ entity.status }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('contact_show', { 'id': entity.id }) }}">Pokaz</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('contact_edit', { 'id': entity.id }) }}">Edytuj</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+{% endblock %}
